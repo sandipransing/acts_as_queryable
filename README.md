@@ -41,12 +41,14 @@ default_fields are the default ones which are displayed when no columns are sele
 default_order ascending or descending
 
 ## Controller
-	def index
+  def index
 	  respond_to do |wants|
 	    wants.html { @payments = Payment.query_find( params ); save_query_params_to_preferences( @payments ) }
 	    wants.csv  { render_query_results_as_csv( Payment.query_find( params, QUERY_CSV_OPTIONS ) ) }
 	  end
 	end
+  Here params can be
+  { :page => 2, :fields => "handle,name,email" }
 
 ## Partial Views
     <%= render :partial => '/shared/query_filters', :locals => { :collection => @payments } %>
@@ -71,7 +73,7 @@ default_order ascending or descending
 	
 	  <script type="text/javascript">
 	    Sortable.create("selected-fields", { dropOnEmpty: true, containment: ["selected-fields"], constraint: false });
-	    </script>
+	  </script>
 	</div>
 	<table width="100%">
 	  <tr>
